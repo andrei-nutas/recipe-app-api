@@ -1,0 +1,23 @@
+version: '3.9'
+# this is the version of docker-compose syntax we are using
+# this is so if new versions of docker-compose syntax comes out, it won't break our code
+
+# services are the containers we are going to run
+services: 
+  app:
+    build: 
+      context: .
+      # we want to build the dockerfile in the current directory
+      args:
+        - DEV=true
+    ports:
+      - "8000:8000"
+      # this maps the port 8000 on our local machine to the port 8000 on the docker container
+      # this is so we can access the container from our local machine
+    volumes:
+      - ./app:/app
+      # we map the app folder in our local machine to the app folder in the docker container
+      # we want our code to be updated in real time, so we don't have to rebuild the container every time we make a change
+    command: >
+      sh -c "python manage.py runserver 0.0.0.0:8000"
+    # this is the command we want to run when we start the container
