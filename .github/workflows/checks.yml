@@ -14,7 +14,7 @@ jobs:
         uses: docker/login-action@v1
         with:
           username: ${{ secrets.DOCKERHUB_USER }}
-          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Checkout
         uses: actions/checkout@v2
         #this is the action that checks out the code from the repo
@@ -24,3 +24,4 @@ jobs:
       - name: Lint
         run: docker-compose run --rm app sh -c "flake8"
     # now we have a compelte set of steps to run our tests and linting
+
